@@ -3,5 +3,8 @@
 
     <!-- Animations -->
     <string name="image_transition">imageTransition</string>
+    <string name="hero_image">Hero image</string>
+    <string name="favorite_button">Favorite button</string>
+    <string name="favorite_icon">Favorite icon</string>
 
 </resources>

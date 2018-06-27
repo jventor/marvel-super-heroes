@@ -1,12 +1,13 @@
 package com.costular.marvelheroes.presentation.heroeslist
 
-import android.app.VoiceInteractor
+
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
+
+
 import android.support.v7.graphics.Palette
 import android.support.v7.widget.RecyclerView
-import android.util.Log
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -73,6 +74,7 @@ class HeroesListAdapter(val clickListener: Click):  RecyclerView.Adapter<HeroesL
                         .into(heroImage)
 
                 heroTitle.text = item.name
+                imgFavorite.visibility = if (item.favorite) View.VISIBLE else  View.INVISIBLE
                 setOnClickListener { clickListener(item, heroImage) }
             }
         }

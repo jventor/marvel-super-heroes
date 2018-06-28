@@ -3,6 +3,7 @@ package com.costular.marvelheroes.data.repository
 import com.costular.marvelheroes.data.repository.datasource.LocalMarvelDatasource
 import com.costular.marvelheroes.data.repository.datasource.RemoteMarvelHeroesDataSource
 import com.costular.marvelheroes.domain.model.MarvelHeroEntity
+import io.reactivex.Completable
 import io.reactivex.Flowable
 
 
@@ -14,6 +15,15 @@ class MarvelHeroesRepositoryImpl(private val remoteMarvelHeroesDataSource: Remot
     : MarvelHeroesRepository {
 
     override fun getMarvelHeroesList(): Flowable<List<MarvelHeroEntity>> =
-        localMarvelDatasource.getMarvelHeroesList().concatWith(remoteMarvelHeroesDataSource.getMarvelHeroesList())
+        getMarvelHeroesFromDb()
+
+    private fun getMarvelHeroesFromDb(): Flowable<List<MarvelHeroEntity>> = localMarvelDatasource.getMarvelHeroesList()
+
+    private fun getMarvelHeroesFromApi(): Flowable<List<MarvelHeroEntity>>  = remoteMarvelHeroesDataSource.getMarvelHeroesList()
+            .doOnNext { localMarvelDatasource.saveMarvelHeroes(it) }
+
+    fun updateMarvelHero (heroe: MarvelHeroEntity) {
+        localMarvelDatasource.updateMarvelHero(heroe)
+    }
 
 }

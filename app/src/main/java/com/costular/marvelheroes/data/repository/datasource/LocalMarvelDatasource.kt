@@ -1,14 +1,30 @@
 package com.costular.marvelheroes.data.repository.datasource
 
-import com.costular.marvelheroes.data.db.HeroeDatabase
+import com.costular.marvelheroes.data.db.HeroDatabase
 
 import com.costular.marvelheroes.domain.model.MarvelHeroEntity
+import io.reactivex.Completable
 import io.reactivex.Flowable
+import io.reactivex.Observable
+import io.reactivex.schedulers.Schedulers
 
 
-class LocalMarvelDatasource(val heroeDatabase: HeroeDatabase): MarvelHeroesDataSource {
+class LocalMarvelDatasource(val heroDatabase: HeroDatabase): MarvelHeroesDataSource {
     override fun getMarvelHeroesList(): Flowable<List<MarvelHeroEntity>> =
-        heroeDatabase.getHeroeDao()
+        heroDatabase.getHeroDao()
                 .getAllHeroes()
                 .toFlowable()
+
+    fun saveMarvelHeroes(heroes: List<MarvelHeroEntity>){
+        Observable.fromCallable { heroDatabase.getHeroDao().updateMarvelHeroes(heroes)}
+                .subscribeOn(Schedulers.io())
+                .subscribe()
+    }
+
+    fun updateMarvelHero(hero: MarvelHeroEntity) {
+        Observable.fromCallable { heroDatabase.getHeroDao().updateMarvelHero(hero) }
+                .subscribeOn(Schedulers.io())
+                .subscribe()
+    }
+
 }

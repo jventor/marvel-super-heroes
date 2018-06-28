@@ -5,6 +5,6 @@ import android.arch.persistence.room.RoomDatabase
 import com.costular.marvelheroes.domain.model.MarvelHeroEntity
 
 @Database(entities = [MarvelHeroEntity::class], version = 1)
-abstract class HeroeDatabase: RoomDatabase() {
-    abstract fun getHeroeDao(): HeroeDao
+abstract class HeroDatabase: RoomDatabase() {
+    abstract fun getHeroDao(): HeroDao
 }

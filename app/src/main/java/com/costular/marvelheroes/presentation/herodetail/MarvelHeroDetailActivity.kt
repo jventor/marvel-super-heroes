@@ -1,4 +1,4 @@
-package com.costular.marvelheroes.presentation.heroedetail
+package com.costular.marvelheroes.presentation.herodetail
 
 import android.arch.lifecycle.Observer
 import android.graphics.drawable.Drawable
@@ -12,13 +12,18 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.costular.marvelheroes.R
+import com.costular.marvelheroes.data.repository.MarvelHeroesRepositoryImpl
+import com.costular.marvelheroes.di.components.DaggerGetMarvelHeroesListComponent
+import com.costular.marvelheroes.di.modules.GetMarvelHeroesListModule
 import com.costular.marvelheroes.domain.model.MarvelHeroEntity
+import com.costular.marvelheroes.presentation.MainApp
 import kotlinx.android.synthetic.main.activity_hero_detail_favorite.*
+import javax.inject.Inject
 
 /**
  * Created by costular on 18/03/2018.
  */
-class MarvelHeroeDetailActivity : AppCompatActivity() {
+class MarvelHeroDetailActivity : AppCompatActivity() {
 
     companion object {
         const val PARAM_HEROE = "heroe"
@@ -26,7 +31,11 @@ class MarvelHeroeDetailActivity : AppCompatActivity() {
 
     lateinit var marvelHeroDetailViewModel: MarvelHeroDetailViewModel
 
+    @Inject
+    lateinit var marvelHeroesRepositoryImpl : MarvelHeroesRepositoryImpl
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        inject()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hero_detail_favorite)
         setupViewModel()
@@ -40,20 +49,22 @@ class MarvelHeroeDetailActivity : AppCompatActivity() {
         hero?.let {
             fillHeroData(it)
             heroDetailFavoriteButton.setOnClickListener {
-                Toast.makeText(this, R.string.app_name, Toast.LENGTH_SHORT).show()
                 heroDetailFavoriteButton.setImageResource(android.R.drawable.star_big_on)
+                hero.favorite = hero.favorite != true
+                if (hero.favorite) Toast.makeText(this, "Add to favorites!", Toast.LENGTH_SHORT).show()
+                marvelHeroDetailViewModel.updateMarvelHero(hero)
             }
         }
 
     }
 
     private fun setupViewModel() {
-        marvelHeroDetailViewModel = MarvelHeroDetailViewModel()
+        marvelHeroDetailViewModel = MarvelHeroDetailViewModel(marvelHeroesRepositoryImpl)
         bindEvents()
     }
 
     private fun bindEvents() {
-        marvelHeroDetailViewModel.heroeState
+        marvelHeroDetailViewModel.heroState
                 .observe(this, Observer {hero ->
                     hero?.let { fillHeroData(it) }
                 })
@@ -98,4 +109,10 @@ class MarvelHeroeDetailActivity : AppCompatActivity() {
         }
     }
 
+    fun inject() {
+        DaggerGetMarvelHeroesListComponent.builder()
+                .applicationComponent((application as MainApp).component)
+                .build()
+                .inject(this)
+    }
 }

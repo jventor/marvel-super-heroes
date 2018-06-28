@@ -2,7 +2,7 @@ package com.costular.marvelheroes.di.modules
 
 import android.arch.persistence.room.Room
 import android.content.Context
-import com.costular.marvelheroes.data.db.HeroeDatabase
+import com.costular.marvelheroes.data.db.HeroDatabase
 import com.costular.marvelheroes.data.model.mapper.MarvelHeroMapper
 import com.costular.marvelheroes.data.net.MarvelHeroesService
 import com.costular.marvelheroes.data.repository.MarvelHeroesRepositoryImpl
@@ -30,7 +30,7 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun provideLocalMarvelHeroesDataSource(heroeDatabase: HeroeDatabase) : LocalMarvelDatasource = LocalMarvelDatasource(heroeDatabase)
+    fun provideLocalMarvelHeroesDataSource(heroeDatabase: HeroDatabase) : LocalMarvelDatasource = LocalMarvelDatasource(heroeDatabase)
 
     @Provides
     @Singleton
@@ -41,5 +41,5 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun provideHeroeDatabase(context: Context): HeroeDatabase = Room.databaseBuilder(context, HeroeDatabase::class.java, "heroe_db").build()
+    fun provideHeroeDatabase(context: Context): HeroDatabase = Room.databaseBuilder(context, HeroDatabase::class.java, "heroe_db").build()
 }

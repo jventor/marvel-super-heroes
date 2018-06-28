@@ -13,8 +13,9 @@ import kotlinx.android.parcel.Parcelize
 @SuppressLint("ParcelCreator")
 @Parcelize
 data class MarvelHeroEntity(
-        @PrimaryKey(autoGenerate = true)
-        val id: Long,
+       // @PrimaryKey(autoGenerate = true)
+        //val id: Long,
+        @PrimaryKey
         val name: String,
         val photoUrl: String,
         val realName: String,
@@ -22,5 +23,5 @@ data class MarvelHeroEntity(
         val power: String,
         val abilities: String,
         //val groups: Array<String>,
-        val favorite: Boolean
+        var favorite: Boolean
 ) : Parcelable

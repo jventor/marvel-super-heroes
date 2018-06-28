@@ -96,4 +96,8 @@ class HeroesListActivity : AppCompatActivity() {
         Toast.makeText(this, messageRes, Toast.LENGTH_LONG).show()
     }
 
+    override fun onResume() {
+        super.onResume()
+        heroesListViewModel.loadHeroesList()
+    }
 }

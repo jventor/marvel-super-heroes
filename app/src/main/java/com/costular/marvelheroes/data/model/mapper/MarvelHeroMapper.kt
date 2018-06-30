@@ -18,7 +18,9 @@ class MarvelHeroMapper : Mapper<MarvelHero, MarvelHeroEntity> {
                     input.power,
                     input.abilities,
                     //getGroupsFromMarvelHero(input),
-                    false)
+                    false ,
+                    0F
+            )
 
     override fun transformList(inputList: List<MarvelHero>): List<MarvelHeroEntity> =
             inputList.map { transform(it) }

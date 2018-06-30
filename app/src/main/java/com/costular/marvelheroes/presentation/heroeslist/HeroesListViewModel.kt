@@ -1,6 +1,7 @@
 package com.costular.marvelheroes.presentation.heroeslist
 
 import android.arch.lifecycle.MutableLiveData
+import android.util.Log
 import com.costular.marvelheroes.data.repository.MarvelHeroesRepositoryImpl
 import com.costular.marvelheroes.domain.model.MarvelHeroEntity
 import com.costular.marvelheroes.presentation.util.mvvm.BaseViewModel
@@ -25,8 +26,12 @@ class HeroesListViewModel @Inject constructor(private val marvelHeroesRepository
                         onNext = {
                             heroesListState.value = it
                         },
-                        onError = {},
-                        onComplete = { }
+                        onError = {
+                            Log.v("loadHeroesList", "OnError")
+                        },
+                        onComplete = {
+                            Log.v("loadHeroesList", "OnComplete")
+                        }
                 )
                 .addTo(compositeDisposable)
 

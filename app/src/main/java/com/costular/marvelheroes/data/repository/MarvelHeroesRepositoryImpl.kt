@@ -5,6 +5,8 @@ import com.costular.marvelheroes.data.repository.datasource.RemoteMarvelHeroesDa
 import com.costular.marvelheroes.domain.model.MarvelHeroEntity
 import io.reactivex.Completable
 import io.reactivex.Flowable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 
 /**
@@ -14,16 +16,21 @@ class MarvelHeroesRepositoryImpl(private val remoteMarvelHeroesDataSource: Remot
                                  private val localMarvelDatasource: LocalMarvelDatasource)
     : MarvelHeroesRepository {
 
-    override fun getMarvelHeroesList(): Flowable<List<MarvelHeroEntity>> =
-        getMarvelHeroesFromDb()
-
     private fun getMarvelHeroesFromDb(): Flowable<List<MarvelHeroEntity>> = localMarvelDatasource.getMarvelHeroesList()
-
-    private fun getMarvelHeroesFromApi(): Flowable<List<MarvelHeroEntity>>  = remoteMarvelHeroesDataSource.getMarvelHeroesList()
-            .doOnNext { localMarvelDatasource.saveMarvelHeroes(it) }
 
     fun updateMarvelHero (heroe: MarvelHeroEntity) {
         localMarvelDatasource.updateMarvelHero(heroe)
     }
 
+    override fun getMarvelHeroesList(): Flowable<List<MarvelHeroEntity>> {
+        val resultObservable = remoteMarvelHeroesDataSource.getMarvelHeroesList()
+
+        resultObservable
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    localMarvelDatasource.saveMarvelHeroes(it)
+                }
+        return getMarvelHeroesFromDb()
+    }
 }

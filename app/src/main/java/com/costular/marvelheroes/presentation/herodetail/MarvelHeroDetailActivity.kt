@@ -49,11 +49,17 @@ class MarvelHeroDetailActivity : AppCompatActivity() {
         hero?.let {
             fillHeroData(it)
             heroDetailFavoriteButton.setOnClickListener {
-                heroDetailFavoriteButton.setImageResource(android.R.drawable.star_big_on)
+                //heroDetailFavoriteButton.setImageResource(android.R.drawable.star_big_on)
                 hero.favorite = hero.favorite != true
                 if (hero.favorite) Toast.makeText(this, "Add to favorites!", Toast.LENGTH_SHORT).show()
                 marvelHeroDetailViewModel.updateMarvelHero(hero)
             }
+
+            heroDetailRatingBar.setOnRatingBarChangeListener { _, fl, _ ->
+                hero.rating = fl
+                marvelHeroDetailViewModel.updateMarvelHero(hero)
+            }
+
         }
 
     }
@@ -92,6 +98,8 @@ class MarvelHeroDetailActivity : AppCompatActivity() {
         heroDetailPower.text = hero.power
         heroDetailAbilities.text = hero.abilities
         heroDetailFavoriteButton.setImageResource(getFavoriteIcon(hero.favorite))
+        heroDetailRatingBar.rating = hero.rating
+
     }
 
     private fun getFavoriteIcon(favorite: Boolean): Int {

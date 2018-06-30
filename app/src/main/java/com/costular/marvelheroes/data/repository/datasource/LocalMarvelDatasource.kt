@@ -16,7 +16,7 @@ class LocalMarvelDatasource(val heroDatabase: HeroDatabase): MarvelHeroesDataSou
                 .toFlowable()
 
     fun saveMarvelHeroes(heroes: List<MarvelHeroEntity>){
-        Observable.fromCallable { heroDatabase.getHeroDao().updateMarvelHeroes(heroes)}
+        Observable.fromCallable { heroDatabase.getHeroDao().insertAll(heroes)}
                 .subscribeOn(Schedulers.io())
                 .subscribe()
     }

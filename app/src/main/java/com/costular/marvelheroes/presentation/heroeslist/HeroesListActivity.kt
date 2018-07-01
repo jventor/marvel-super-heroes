@@ -14,6 +14,7 @@ import com.costular.marvelheroes.di.modules.GetMarvelHeroesListModule
 import com.costular.marvelheroes.domain.model.MarvelHeroEntity
 import com.costular.marvelheroes.presentation.MainApp
 import com.costular.marvelheroes.presentation.util.Navigator
+import com.costular.marvelheroes.presentation.util.SettingsManager
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
@@ -25,9 +26,14 @@ class HeroesListActivity : AppCompatActivity() {
     @Inject
     lateinit var marvelHeroesRepositoryImpl : MarvelHeroesRepositoryImpl
 
+    @Inject
+    lateinit var settingsManager: SettingsManager
+
     lateinit var adapter: HeroesListAdapter
 
     lateinit var heroesListViewModel: HeroesListViewModel
+
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +46,7 @@ class HeroesListActivity : AppCompatActivity() {
     }
 
     private fun setupViewModel() {
-        heroesListViewModel = HeroesListViewModel(marvelHeroesRepositoryImpl)
+        heroesListViewModel = HeroesListViewModel(marvelHeroesRepositoryImpl, settingsManager)
         bindEvents()
         heroesListViewModel.loadHeroesList()
     }

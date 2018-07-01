@@ -1,5 +1,6 @@
 package com.costular.marvelheroes.di.components
 
+import com.costular.marvelheroes.di.modules.DataModule
 import com.costular.marvelheroes.di.modules.GetMarvelHeroesListModule
 import com.costular.marvelheroes.di.scopes.PerActivity
 import com.costular.marvelheroes.presentation.herodetail.MarvelHeroDetailActivity

@@ -14,7 +14,6 @@ import com.bumptech.glide.request.target.Target
 import com.costular.marvelheroes.R
 import com.costular.marvelheroes.data.repository.MarvelHeroesRepositoryImpl
 import com.costular.marvelheroes.di.components.DaggerGetMarvelHeroesListComponent
-import com.costular.marvelheroes.di.modules.GetMarvelHeroesListModule
 import com.costular.marvelheroes.domain.model.MarvelHeroEntity
 import com.costular.marvelheroes.presentation.MainApp
 import kotlinx.android.synthetic.main.activity_hero_detail_favorite.*
@@ -49,7 +48,6 @@ class MarvelHeroDetailActivity : AppCompatActivity() {
         hero?.let {
             fillHeroData(it)
             heroDetailFavoriteButton.setOnClickListener {
-                //heroDetailFavoriteButton.setImageResource(android.R.drawable.star_big_on)
                 hero.favorite = hero.favorite != true
                 if (hero.favorite) Toast.makeText(this, "Add to favorites!", Toast.LENGTH_SHORT).show()
                 marvelHeroDetailViewModel.updateMarvelHero(hero)

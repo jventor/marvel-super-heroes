@@ -5,14 +5,15 @@ import com.costular.marvelheroes.data.db.HeroDatabase
 import com.costular.marvelheroes.domain.model.MarvelHeroEntity
 import io.reactivex.Flowable
 import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 
 
 class LocalMarvelDatasource(val heroDatabase: HeroDatabase): MarvelHeroesDataSource {
-    override fun getMarvelHeroesList(): Flowable<List<MarvelHeroEntity>> =
+    override fun getMarvelHeroesList(): Single<List<MarvelHeroEntity>> =
         heroDatabase.getHeroDao()
                 .getAllHeroes()
-                .toFlowable()
+               .toSingle()
 
     fun saveMarvelHeroes(heroes: List<MarvelHeroEntity>){
         Observable.fromCallable { heroDatabase.getHeroDao().insertAll(heroes)}

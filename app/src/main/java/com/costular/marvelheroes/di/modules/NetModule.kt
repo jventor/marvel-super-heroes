@@ -1,5 +1,7 @@
 package com.costular.marvelheroes.di.modules
 
+import android.content.Context
+import android.net.ConnectivityManager
 import com.costular.marvelheroes.BuildConfig
 import com.costular.marvelheroes.data.net.MarvelHeroesService
 import dagger.Module
@@ -9,6 +11,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 /**
@@ -22,9 +25,8 @@ class NetModule {
     fun provideRetrofit(): Retrofit {
         val client =
                 OkHttpClient.Builder()
-                        .addInterceptor(HttpLoggingInterceptor().apply {
-                            level = HttpLoggingInterceptor.Level.BODY
-                        })
+                        .addInterceptor(HttpLoggingInterceptor()
+                        .apply { level = HttpLoggingInterceptor.Level.BODY })
                         .build()
 
         return Retrofit.Builder()
@@ -33,7 +35,6 @@ class NetModule {
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
-
     }
 
     @Provides
@@ -41,4 +42,8 @@ class NetModule {
     fun provideMarvelHeroesService(retrofit: Retrofit): MarvelHeroesService =
             retrofit.create(MarvelHeroesService::class.java)
 
+    @Provides
+    @Singleton
+    fun provideConnectivityManager(context: Context) : ConnectivityManager =
+                    context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 }

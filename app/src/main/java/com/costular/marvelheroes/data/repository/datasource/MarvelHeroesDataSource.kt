@@ -2,7 +2,7 @@ package com.costular.marvelheroes.data.repository.datasource
 
 
 import com.costular.marvelheroes.domain.model.MarvelHeroEntity
-import io.reactivex.Flowable
+import io.reactivex.Single
 
 
 /**
@@ -10,6 +10,6 @@ import io.reactivex.Flowable
  */
 interface MarvelHeroesDataSource {
 
-    fun getMarvelHeroesList(): Flowable<List<MarvelHeroEntity>>
+    fun getMarvelHeroesList(): Single<List<MarvelHeroEntity>>
 
 }

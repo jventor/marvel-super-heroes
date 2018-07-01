@@ -17,5 +17,4 @@ class GetMarvelHeroesListModule(private val view: HeroesListActivity) {
     @PerActivity
     fun provideGetListHeroesUseCase(marvelHeroesRepositoryImpl: MarvelHeroesRepositoryImpl): GetMarvelHeroesList =
             GetMarvelHeroesList(marvelHeroesRepositoryImpl)
-
 }

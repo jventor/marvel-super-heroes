@@ -1,6 +1,7 @@
 package com.costular.marvelheroes.di.components
 
 import android.content.Context
+import android.net.ConnectivityManager
 import com.costular.marvelheroes.data.net.MarvelHeroesService
 import com.costular.marvelheroes.data.repository.MarvelHeroesRepositoryImpl
 import com.costular.marvelheroes.di.modules.ApplicationModule
@@ -23,5 +24,5 @@ interface ApplicationComponent {
     fun getHeroService(): MarvelHeroesService
     fun getNavigator(): Navigator
     fun getSettingsManager(): SettingsManager
-
+    fun getConnectivityManager(): ConnectivityManager
 }

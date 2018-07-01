@@ -17,7 +17,7 @@ class Navigator {
         val options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, image,
                 ViewCompat.getTransitionName(image))
         val intent = Intent(activity, MarvelHeroDetailActivity::class.java).apply {
-            putExtra(MarvelHeroDetailActivity.PARAM_HEROE, hero)
+            putExtra(MarvelHeroDetailActivity.PARAM_HERO, hero)
         }
 
         activity.startActivity(intent, options.toBundle())

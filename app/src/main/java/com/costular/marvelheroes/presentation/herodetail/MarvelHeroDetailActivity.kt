@@ -25,7 +25,7 @@ import javax.inject.Inject
 class MarvelHeroDetailActivity : AppCompatActivity() {
 
     companion object {
-        const val PARAM_HEROE = "heroe"
+        const val PARAM_HERO = "hero"
     }
 
     lateinit var marvelHeroDetailViewModel: MarvelHeroDetailViewModel
@@ -44,7 +44,7 @@ class MarvelHeroDetailActivity : AppCompatActivity() {
         }
         supportPostponeEnterTransition() // Wait for image load and then draw the animation
 
-        val hero: MarvelHeroEntity? = intent?.extras?.getParcelable(PARAM_HEROE)
+        val hero: MarvelHeroEntity? = intent?.extras?.getParcelable(PARAM_HERO)
         hero?.let {
             fillHeroData(it)
             heroDetailFavoriteButton.setOnClickListener {

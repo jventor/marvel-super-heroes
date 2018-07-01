@@ -4,8 +4,8 @@ import com.costular.marvelheroes.data.repository.datasource.LocalMarvelDatasourc
 import com.costular.marvelheroes.data.repository.datasource.RemoteMarvelHeroesDataSource
 import com.costular.marvelheroes.domain.model.MarvelHeroEntity
 import com.costular.marvelheroes.presentation.util.SettingsManager
-import io.reactivex.Completable
 import io.reactivex.Flowable
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -14,31 +14,32 @@ import io.reactivex.schedulers.Schedulers
  * Created by costular on 17/03/2018.
  */
 class MarvelHeroesRepositoryImpl(private val remoteMarvelHeroesDataSource: RemoteMarvelHeroesDataSource,
-                                 private val localMarvelDatasource: LocalMarvelDatasource)
+                                 private val localMarvelDatasource: LocalMarvelDatasource,
+                                 private val settingsManager: SettingsManager)
     : MarvelHeroesRepository {
 
-    private fun getMarvelHeroesFromDb(): Flowable<List<MarvelHeroEntity>> = localMarvelDatasource.getMarvelHeroesList()
+    private fun getMarvelHeroesFromDb(): Flowable<List<MarvelHeroEntity>> = localMarvelDatasource.getMarvelHeroesList().toFlowable()
 
-    fun updateMarvelHero (heroe: MarvelHeroEntity) {
-        localMarvelDatasource.updateMarvelHero(heroe)
+    fun updateMarvelHero (hero: MarvelHeroEntity) {
+        localMarvelDatasource.updateMarvelHero(hero)
     }
-
 
     override fun getMarvelHeroesList(): Flowable<List<MarvelHeroEntity>> {
-        val resultObservable = remoteMarvelHeroesDataSource.getMarvelHeroesList()
+        if (!settingsManager.firstLoad) {
+            remoteMarvelHeroesDataSource.getMarvelHeroesList()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .onErrorResumeNext {
+                        Single.just(emptyList())
+                    }
+                    .doOnSuccess {
+                        localMarvelDatasource.saveMarvelHeroes(it)
+                    }
 
-        resultObservable
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    localMarvelDatasource.saveMarvelHeroes(it)
-
-                }
-
-        return getMarvelHeroesFromDb()
+            return getMarvelHeroesFromDb()
+        }
+        return remoteMarvelHeroesDataSource.getMarvelHeroesList().doOnSuccess {
+            localMarvelDatasource.saveMarvelHeroes(it)
+        }.toFlowable()
     }
-
-    fun firstGetMarvelHeroesList(): Flowable<List<MarvelHeroEntity>>
-            = remoteMarvelHeroesDataSource.getMarvelHeroesList().doOnNext { localMarvelDatasource.saveMarvelHeroes(it)}
-
 }

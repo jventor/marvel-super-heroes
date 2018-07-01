@@ -21,9 +21,6 @@ import com.costular.marvelheroes.R
 import com.costular.marvelheroes.domain.model.MarvelHeroEntity
 import kotlinx.android.synthetic.main.item_hero.view.*
 
-        /**
- * Created by costular on 17/03/2018.
- */
 typealias Click = (MarvelHeroEntity, ImageView) -> Unit
 
 class HeroesListAdapter(val clickListener: Click):  RecyclerView.Adapter<HeroesListAdapter.HeroesViewHolder>() {

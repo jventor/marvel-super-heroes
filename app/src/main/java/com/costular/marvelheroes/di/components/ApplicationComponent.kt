@@ -12,9 +12,6 @@ import com.costular.marvelheroes.presentation.util.SettingsManager
 import dagger.Component
 import javax.inject.Singleton
 
-/**
- * Created by costular on 16/03/2018.
- */
 @Singleton
 @Component(modules = [ApplicationModule::class, NetModule::class, DataModule::class])
 interface ApplicationComponent {

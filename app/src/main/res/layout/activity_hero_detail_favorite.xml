@@ -111,8 +111,7 @@
             android:contentDescription="@string/favorite_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@android:drawable/btn_star_big_off" />
+            app:srcCompat="@android:drawable/btn_star_big_off"
+            android:focusable="true" />
     </android.support.constraint.ConstraintLayout>
-
-
 </ScrollView>

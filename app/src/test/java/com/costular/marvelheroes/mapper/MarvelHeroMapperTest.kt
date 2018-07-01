@@ -23,7 +23,9 @@ class MarvelHeroMapperTest {
     @Test
     fun `Transform MarvelHero into MarvelHeroEntity`() {
         // Given
-        val marvelHero = MarvelHero("Iron Man", "http://ironman.com")
+        val marvelHero = MarvelHero(
+                "Spiderman",
+                "http://spider-man.com")
 
         // When
         val marvelHeroEntity = marvelHeroMapper.transform(marvelHero)
@@ -47,7 +49,6 @@ class MarvelHeroMapperTest {
         // Then
         Assertions.assertThat(marvelHeroes.size).isEqualTo(marvelHeroesEntities.size)
         Assertions.assertThat(marvelHeroesEntities).allMatch { it is MarvelHeroEntity }
-        Assertions.assertThat(marvelHeroesEntities.first().groups).isEqualTo(arrayOf("1", "2"))
         Assertions.assertThat(marvelHeroesEntities.first().name).isEqualTo(marvelHeroes.first().name)
         Assertions.assertThat(marvelHeroesEntities.last().name).isEqualTo(marvelHeroes.last().name)
     }

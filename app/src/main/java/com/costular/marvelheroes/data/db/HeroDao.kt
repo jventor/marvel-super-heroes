@@ -2,7 +2,6 @@ package com.costular.marvelheroes.data.db
 
 import android.arch.persistence.room.*
 import com.costular.marvelheroes.domain.model.MarvelHeroEntity
-import io.reactivex.Flowable
 import io.reactivex.Maybe
 
 @Dao

@@ -2,9 +2,6 @@ package com.costular.marvelheroes.data.model
 
 import com.google.gson.annotations.SerializedName
 
-/**
- * Created by costular on 16/03/2018.
- */
 data class MarvelHero(
         val name: String = "",
         @SerializedName("photo")

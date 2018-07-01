@@ -15,9 +15,6 @@ import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-/**
- * Created by costular on 17/03/2018.
- */
 @Module
 class DataModule {
 

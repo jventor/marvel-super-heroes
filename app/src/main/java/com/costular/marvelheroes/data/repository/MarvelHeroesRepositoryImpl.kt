@@ -10,9 +10,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 
-/**
- * Created by costular on 17/03/2018.
- */
 class MarvelHeroesRepositoryImpl(private val remoteMarvelHeroesDataSource: RemoteMarvelHeroesDataSource,
                                  private val localMarvelDatasource: LocalMarvelDatasource,
                                  private val settingsManager: SettingsManager)

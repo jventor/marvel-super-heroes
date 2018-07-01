@@ -8,9 +8,6 @@ import android.view.View
 import com.costular.marvelheroes.domain.model.MarvelHeroEntity
 import com.costular.marvelheroes.presentation.herodetail.MarvelHeroDetailActivity
 
-/**
- * Created by costular on 17/03/2018.
- */
 class Navigator {
 
     fun goToHeroDetail(activity: Activity, hero: MarvelHeroEntity, image: View) {

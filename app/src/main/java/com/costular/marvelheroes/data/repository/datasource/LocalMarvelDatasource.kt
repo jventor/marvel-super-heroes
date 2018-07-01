@@ -3,7 +3,6 @@ package com.costular.marvelheroes.data.repository.datasource
 import com.costular.marvelheroes.data.db.HeroDatabase
 
 import com.costular.marvelheroes.domain.model.MarvelHeroEntity
-import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers

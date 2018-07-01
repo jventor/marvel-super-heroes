@@ -8,9 +8,6 @@ import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-/**
- * Created by costular on 16/03/2018.
- */
 @Module
 class ApplicationModule(private val application: MainApp) {
 

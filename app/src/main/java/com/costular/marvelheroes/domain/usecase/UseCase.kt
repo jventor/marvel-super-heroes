@@ -6,9 +6,6 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
 
-/**
- * Created by costular on 17/03/2018.
- */
 abstract class UseCase<T> {
 
     internal val disposables = CompositeDisposable()

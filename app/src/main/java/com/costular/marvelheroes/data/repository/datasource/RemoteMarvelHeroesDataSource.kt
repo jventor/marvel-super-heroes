@@ -6,9 +6,6 @@ import com.costular.marvelheroes.domain.model.MarvelHeroEntity
 import io.reactivex.Single
 
 
-/**
- * Created by costular on 17/03/2018.
- */
 class RemoteMarvelHeroesDataSource(private val marvelHeroesService: MarvelHeroesService,
                                     private val marvelHeroMapper: MarvelHeroMapper):
         MarvelHeroesDataSource {

@@ -19,9 +19,6 @@ import com.costular.marvelheroes.presentation.MainApp
 import kotlinx.android.synthetic.main.activity_hero_detail_favorite.*
 import javax.inject.Inject
 
-/**
- * Created by costular on 18/03/2018.
- */
 class MarvelHeroDetailActivity : AppCompatActivity() {
 
     companion object {

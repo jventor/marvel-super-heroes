@@ -7,9 +7,6 @@ import com.costular.marvelheroes.presentation.heroeslist.HeroesListActivity
 import dagger.Module
 import dagger.Provides
 
-/**
- * Created by costular on 17/03/2018.
- */
 @Module
 class GetMarvelHeroesListModule(private val view: HeroesListActivity) {
 

@@ -29,9 +29,9 @@ class HeroesListActivity : AppCompatActivity() {
     @Inject
     lateinit var settingsManager: SettingsManager
 
-    lateinit var adapter: HeroesListAdapter
+    private lateinit var adapter: HeroesListAdapter
 
-    lateinit var heroesListViewModel: HeroesListViewModel
+    private lateinit var heroesListViewModel: HeroesListViewModel
 
 
 
